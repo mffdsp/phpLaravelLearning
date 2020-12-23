@@ -14,11 +14,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//students routes
+Route::get('/students', 'StudentController@read');
+Route::post('/students', 'StudentController@store');
+Route::delete('/students', 'StudentController@delete');
 
-Route::get('/teste01', 'App\Http\Controllers\StudentController@get');
-Route::post('/teste01', 'App\Http\Controllers\StudentController@post');
+
+Route::delete('/students/{id}', 'StudentController@delete');
+Route::get('/students/{id}', 'StudentController@read');
+Route::put('/students/{id}', 'StudentController@update');
+
+//teachers routes:
+Route::get('/teachers', 'TeacherController@read');
+Route::post('/teachers', 'TeacherController@store');
+Route::delete('/teachers', 'TeacherController@delete');
 
 
-Route::delete('/teste01/{id}', 'App\Http\Controllers\StudentController@delete');
-Route::get('/teste01/{id}', 'App\Http\Controllers\StudentController@get');
-Route::put('/teste01/{id}', 'App\Http\Controllers\StudentController@put');
+Route::delete('/teachers/{id}', 'TeacherController@delete');
+Route::get('/teachers/{id}', 'TeacherController@read');
+Route::put('/teachers/{id}', 'TeacherController@update');
