@@ -5,11 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Student extends Model
+class Teacher extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nome', 'email', 'cpf', 'endereco', 'matricula'];
+    use HasFactory;
+
+    protected $fillable = ['nome', 'email', 'cpf', 'turmas'];
 
     protected $primaryKey = 'id';
     public $incrementing = true;
