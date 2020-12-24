@@ -38,7 +38,6 @@ class StudentController extends Controller{
     //Utilizo do slug, id, endpoint p acessar o bd.
     public function read($id = null){
 
-
         if($id == null){
             $student = Student::get();
         }else {
@@ -82,6 +81,46 @@ class StudentController extends Controller{
             echo $e.getMessage();
 
         }
+    }
+
+    public function uploadImage(Request $request, $id){
+
+        if($request->file('imagem')){
+            $file = $request->file('imagem');
+            $ext = $file->getClientOriginalExtension();
+            $filename = time() . '-' . $ext;
+            $file->move('uploads/images/', $filename);
+
+        }else {
+            return $file;
+        }
+
+        $student = Student::where('cpf', $id)->get()->first();
+
+        if($student) {
+            
+            $newStudent = [
+                'nome' => $student->nome,
+                "endereco" =>  $student->endereco,
+                "cpf" =>  $student->cpf,
+                "email" =>  $student->email,
+                "matricula" => $student->matricula,
+                "imagem" => $filename
+            ];
+
+            return Student::where('cpf', $id)->update($newStudent);
+        }else return 'NOT FOUND';
+        
+    }
+
+    public function downloadImage(Request $request, $id){
+
+        $student = Student::where('cpf', $id)->get()->first();
+
+        if($student){
+           return redirect('uploads/images/' . $student->imagem);
+        }else return 'NOT FOUND';
+        
     }
    
 }

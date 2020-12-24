@@ -9,7 +9,7 @@ class Student extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nome', 'email', 'cpf', 'endereco', 'matricula'];
+    protected $fillable = ['nome', 'email', 'cpf', 'endereco', 'matricula', 'imagem'];
 
     protected $primaryKey = 'id';
     public $incrementing = true;

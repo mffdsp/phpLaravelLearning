@@ -33,3 +33,11 @@ Route::delete('/teachers', 'TeacherController@delete');
 Route::delete('/teachers/{id}', 'TeacherController@delete');
 Route::get('/teachers/{id}', 'TeacherController@read');
 Route::put('/teachers/{id}', 'TeacherController@update');
+
+//Imagem
+Route::post('/teachers/uploadImage/{id}', 'TeacherController@uploadImage');
+Route::get('/teachers/uploadImage/{id}', 'TeacherController@downloadImage');
+
+Route::post('/students/uploadImage/{id}', 'StudentController@uploadImage');
+Route::get('/students/uploadImage/{id}', 'StudentController@downloadImage');
+

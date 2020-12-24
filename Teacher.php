@@ -11,7 +11,7 @@ class Teacher extends Model
 
     use HasFactory;
 
-    protected $fillable = ['nome', 'email', 'cpf', 'turmas'];
+    protected $fillable = ['nome', 'email', 'cpf', 'turmas', 'imagem'];
 
     protected $primaryKey = 'id';
     public $incrementing = true;

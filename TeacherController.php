@@ -22,6 +22,7 @@ class TeacherController extends Controller{
                 'turmas' =>  $request->turmas,
                 'email' => $request->email, 
                 'nome' => $request->nome,
+                'imagem' => 'imagePath',
             ];
             
             Teacher::create($teacher);
@@ -55,7 +56,6 @@ class TeacherController extends Controller{
                 'email' => $request->email,
                 'nome' => $request->nome,
             ];
-
             $teacher = Teacher::where('cpf', $request->cpf)->update($teacher);
 
             return view('teachersView', ['teacher' => $teacher]);
@@ -76,6 +76,45 @@ class TeacherController extends Controller{
             echo $e.getMessage();
 
         }
+    }
+
+    public function uploadImage(Request $request, $id){
+
+        if($request->file('imagem')){
+            $file = $request->file('imagem');
+            $ext = $file->getClientOriginalExtension();
+            $filename = time() . '-' . $ext;
+            $file->move('uploads/images/', $filename);
+
+        }else {
+            return $file;
+        }
+
+        $teacher = Teacher::where('cpf', $id)->get()->first();
+
+        if($teacher) {
+            
+            $newTeacher = [
+                'nome' => $teacher->nome,
+                "turmas" =>  $teacher->turmas,
+                "cpf" =>  $teacher->cpf,
+                "email" =>  $teacher->email,
+                "imagem" => $filename
+            ];
+
+            return Teacher::where('cpf', $id)->update($newTeacher);
+        }else return 'NOT FOUND';
+        
+    }
+
+    public function downloadImage(Request $request, $id){
+
+        $teacher = Teacher::where('cpf', $id)->get()->first();
+
+        if($teacher){
+           return redirect('uploads/images/' . $teacher->imagem);
+        }else return 'NOT FOUND';
+        
     }
    
 }
